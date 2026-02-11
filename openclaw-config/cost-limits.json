@@ -1,0 +1,31 @@
+{
+  "limits": {
+    "daily": {
+      "amount": 10.00,
+      "currency": "USD",
+      "action": "warn",
+      "notification": "telegram"
+    },
+    "monthly": {
+      "amount": 100.00,
+      "currency": "USD", 
+      "action": "throttle",
+      "throttleModel": "openai/gpt-4o-mini",
+      "notification": "telegram"
+    },
+    "perRequest": {
+      "amount": 2.00,
+      "currency": "USD",
+      "action": "confirm"
+    }
+  },
+  "notifications": {
+    "enabled": true,
+    "thresholds": [50, 75, 90, 100],
+    "channels": ["telegram"]
+  },
+  "tracking": {
+    "enabled": true,
+    "logFile": "~/.openclaw/logs/costs.log"
+  }
+}

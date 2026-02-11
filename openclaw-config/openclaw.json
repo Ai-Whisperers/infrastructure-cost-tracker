@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.2.9",
+    "lastTouchedAt": "2026-02-11T00:52:00.851Z"
+  },
+  "wizard": {
+    "lastRunAt": "2026-02-11T00:52:00.845Z",
+    "lastRunVersion": "2026.2.9",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  },
+  "auth": {
+    "profiles": {
+      "openrouter:default": {
+        "provider": "openrouter",
+        "mode": "api_key"
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "openrouter/deepseek/deepseek-chat",
+        "fallbacks": [
+          "anthropic/claude-3-5-sonnet",
+          "openai/gpt-4o"
+        ]
+      },
+      "models": {
+        "openrouter/deepseek/deepseek-chat": {
+          "alias": "deepseek"
+        },
+        "anthropic/claude-3-5-sonnet": {
+          "alias": "gpt-4o-mini"
+        },
+        "elevenlabs/text-to-speech": {
+          "alias": "elevenlabs-tts"
+        },
+        "openrouter/auto": {
+          "alias": "OpenRouter"
+        },
+        "opencloude/gemin": {}
+      },
+      "workspace": "/home/ai-whisperers/.openclaw/workspace",
+      "contextPruning": {
+        "mode": "cache-ttl",
+        "ttl": "24h"
+      },
+      "compaction": {
+        "mode": "safeguard"
+      },
+      "heartbeat": {
+        "every": "30m"
+      },
+      "maxConcurrent": 2,
+      "subagents": {
+        "maxConcurrent": 4
+      }
+    },
+    "list": [
+      {
+        "id": "local",
+        "default": true,
+        "identity": {
+          "name": "Nyx",
+          "emoji": "🌙"
+        }
+      }
+    ]
+  },
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto"
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "boot-md": {
+          "enabled": true
+        },
+        "command-logger": {
+          "enabled": true
+        },
+        "session-memory": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "channels": {
+    "whatsapp": {
+      "dmPolicy": "allowlist",
+      "selfChatMode": true,
+      "allowFrom": [
+        "+595981324569",
+        "+595986138387"
+      ],
+      "groupPolicy": "allowlist",
+      "mediaMaxMb": 50,
+      "debounceMs": 0
+    },
+    "telegram": {
+      "dmPolicy": "pairing",
+      "allowFrom": [
+        "*"
+      ],
+      "groupPolicy": "allowlist",
+      "streamMode": "partial"
+    }
+  },
+  "talk": {},
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "auth": {
+      "mode": "password",
+      "token": "53f728d46f5cb7e961fd1d85d6ca0940"
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    }
+  },
+  "skills": {
+    "install": {
+      "nodeManager": "bun"
+    },
+    "entries": {
+      "memu": {
+        "enabled": true
+      },
+      "github": {
+        "enabled": true
+      },
+      "exa-web-search-free": {
+        "enabled": true
+      },
+      "git-sync": {
+        "enabled": true
+      },
+      "nano-banana-pro": {
+        "enabled": true
+      },
+      "mcp-builder": {
+        "enabled": true
+      },
+      "pr-reviewer": {
+        "enabled": true
+      },
+      "conventional-commits": {
+        "enabled": true
+      },
+      "regex-patterns": {
+        "enabled": true
+      },
+      "backend-patterns": {
+        "enabled": true
+      },
+      "obsidian": {
+        "enabled": true
+      },
+      "ml-pipeline": {
+        "enabled": true
+      },
+      "docker-workflows": {
+        "enabled": true
+      },
+      "api-testing": {
+        "enabled": true
+      },
+      "sql-optimization": {
+        "enabled": true
+      },
+      "python-best-practices": {
+        "enabled": true
+      },
+      "javascript-typescript": {
+        "enabled": true
+      }
+    }
+  },
+  "plugins": {
+    "entries": {
+      "telegram": {
+        "enabled": true
+      },
+      "whatsapp": {
+        "enabled": true
+      },
+      "qwen-portal-auth": {
+        "enabled": true
+      }
+    }
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "version": 1,
+  "socket": {
+    "path": "/home/ai-whisperers/.openclaw/exec-approvals.sock",
+    "token": "oRj8mK2pL5vQ9xW4zA7bE1cF6hI0jN3k"
+  },
+  "defaults": {
+    "requireApproval": true,
+    "autoApprove": [
+      "read",
+      "list", 
+      "status",
+      "info",
+      "search",
+      "show"
+    ],
+    "requireConfirmation": [
+      "write",
+      "create",
+      "update",
+      "delete",
+      "remove",
+      "exec",
+      "shell",
+      "run",
+      "install",
+      "uninstall"
+    ],
+    "dangerousPatterns": [
+      "rm -rf",
+      "rm -rf /",
+      "sudo",
+      "sudo -S",
+      "chmod 777",
+      "chmod -R 777",
+      "curl.*\\|.*sh",
+      "curl.*\\|.*bash",
+      "wget.*\\|.*sh",
+      "wget.*\\|.*bash",
+      "> ~/\\.",
+      ">> ~/\\.",
+      "eval\\s*\\(",
+      "exec\\s*\\(",
+      "system\\s*\\(",
+      "child_process",
+      "spawn\\s*\\(",
+      "fork\\s*\\("
+    ],
+    "blockedCommands": [
+      "sudo",
+      "su",
+      "passwd",
+      "usermod",
+      "useradd",
+      "groupadd",
+      "visudo",
+      "mkfs",
+      "dd",
+      "fdisk",
+      "parted"
+    ],
+    "blockedPaths": [
+      "/etc/passwd",
+      "/etc/shadow",
+      "/etc/sudoers",
+      "/root",
+      "/boot",
+      "/sys",
+      "/proc",
+      "/dev/sd*",
+      "/dev/hd*"
+    ],
+    "sensitivePaths": [
+      "/home/ai-whisperers/.openclaw/.env",
+      "/home/ai-whisperers/.openclaw/.gateway-password",
+      "/home/ai-whisperers/.ssh",
+      "/home/ai-whisperers/.gnupg",
+      "/home/ai-whisperers/.aws",
+      "/home/ai-whisperers/.config/gcloud",
+      "/home/ai-whisperers/.docker"
+    ]
+  },
+  "agents": {
+    "local": {
+      "maxCommandsPerMinute": 10,
+      "maxFileWritesPerMinute": 5,
+      "maxNetworkRequestsPerMinute": 20,
+      "maxCostPerAction": 5.00,
+      "requireConfirmationFor": [
+        "delete",
+        "exec",
+        "shell",
+        "install",
+        "uninstall",
+        "write-to-sensitive-path"
+      ],
+      "allowedHosts": [
+        "api.github.com",
+        "api.openai.com",
+        "api.anthropic.com",
+        "openrouter.ai",
+        "api.openweathermap.org",
+        "api.elevenlabs.io",
+        "api.telegram.org",
+        "web.whatsapp.com"
+      ],
+      "blockedHosts": [
+        "*localhost*",
+        "*127.0.0.1*",
+        "*192.168.*",
+        "*10.*",
+        "*172.16.*"
+      ]
+    }
+  },
+  "skills": {
+    "coding-agent": {
+      "riskLevel": "high",
+      "maxCostPerAction": 10.00,
+      "requireConfirmation": true,
+      "allowedPaths": ["/home/ai-whisperers/.openclaw/workspace"],
+      "blockedPaths": ["*"]
+    },
+    "docker-essentials": {
+      "riskLevel": "critical",
+      "requireConfirmation": true,
+      "blockedCommands": ["docker run --privileged", "docker run -v /:"],
+      "maxCommandsPerMinute": 5
+    },
+    "aws-infra": {
+      "riskLevel": "high",
+      "maxCostPerAction": 50.00,
+      "requireConfirmation": true,
+      "blockedOperations": ["delete", "terminate", "destroy"]
+    },
+    "github": {
+      "riskLevel": "medium",
+      "maxCommandsPerMinute": 15,
+      "blockedOperations": ["repo delete", "org delete"]
+    },
+    "nano-banana-pro": {
+      "riskLevel": "medium",
+      "maxCostPerAction": 2.00,
+      "requireConfirmation": false
+    }
+  }
+}
