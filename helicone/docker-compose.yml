@@ -1,0 +1,42 @@
+services:
+  helicone:
+    image: helicone/ai-gateway:latest
+    container_name: helicone-gateway
+    restart: unless-stopped
+    ports:
+      - "8585:8080"  # Gateway API (mapped to 8585 externally)
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+      - ./logs:/app/logs
+    environment:
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-sk-d33f777e08164b13b0d25a7bf31c519b}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - GOOGLE_GEMINI_API_KEY=${GOOGLE_GEMINI_API_KEY:-AIzaSyCaIdRPNf3bgPyQ3FuVeWkFpn-zfEQIr-Y}
+      - RUST_LOG=info
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - helicone-network
+
+  # Optional: Redis for caching (better performance)
+  redis:
+    image: redis:7-alpine
+    container_name: helicone-redis
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    networks:
+      - helicone-network
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+
+networks:
+  helicone-network:
+    driver: bridge
+
+volumes:
+  redis-data:

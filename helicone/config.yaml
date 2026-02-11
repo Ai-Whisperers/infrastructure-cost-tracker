@@ -1,0 +1,115 @@
+# Helicone AI Gateway Configuration
+# AI Whisperers - Production Setup
+# Docs: https://docs.helicone.ai/ai-gateway/config
+
+helicone:
+  # Features to enable
+  features: all
+
+# Provider API Keys (loaded from environment)
+# Set these in .env file:
+# - OPENAI_API_KEY
+# - ANTHROPIC_API_KEY
+# - DEEPSEEK_API_KEY
+# - GOOGLE_GEMINI_API_KEY
+
+# Cache configuration
+cache-store:
+  type: redis
+  url: redis://helicone-redis:6379
+
+# Global settings for all routers
+global:
+  cache:
+    enabled: true
+    directive: "max-age=3600, max-stale=1800"  # 1 hour cache, 30 min stale
+  rate-limit:
+    enabled: true
+
+# Router configurations
+routers:
+  # Primary router for AI Whisperers
+  ai-whisperers:
+    # Load balancing across providers
+    load-balance:
+      chat:
+        strategy: model-latency  # Use fastest model
+        models:
+          - deepseek/deepseek-chat      # Primary (you have $49.99)
+          - openai/gpt-4o-mini          # Fallback 1
+          - anthropic/claude-3-5-sonnet # Fallback 2
+          - google/gemini-2.0-flash     # Fallback 3
+    
+    # Rate limiting
+    rate-limit:
+      global:
+        capacity: 10000
+        refill-frequency: 1m  # 10K requests per minute
+      per-api-key:
+        capacity: 1000
+        refill-frequency: 1m  # 1K requests per minute per key
+    
+    # Provider-specific settings
+    providers:
+      deepseek:
+        enabled: true
+        timeout: 60
+        retries: 3
+      openai:
+        enabled: false  # Enable when you add credits
+        timeout: 60
+        retries: 3
+      anthropic:
+        enabled: false  # Enable when you add credits
+        timeout: 60
+        retries: 3
+      google:
+        enabled: false  # Enable when you verify Gemini key
+        timeout: 60
+        retries: 3
+
+  # Cost-optimized router (cheapest models)
+  cost-optimized:
+    load-balance:
+      chat:
+        strategy: cost-optimization
+        models:
+          - deepseek/deepseek-chat       # $0.14/1M input
+          - openai/gpt-4o-mini          # $0.15/1M input
+          - google/gemini-2.0-flash     # $0.075/1M input
+    
+    rate-limit:
+      global:
+        capacity: 5000
+        refill-frequency: 1m
+
+  # High-quality router (best models)
+  high-quality:
+    load-balance:
+      chat:
+        strategy: model-latency
+        models:
+          - anthropic/claude-3-5-sonnet
+          - openai/gpt-4o
+          - deepseek/deepseek-chat
+    
+    rate-limit:
+      global:
+        capacity: 2000
+        refill-frequency: 1m
+
+# Server settings
+server:
+  port: 8080
+  host: 0.0.0.0
+  # workers: 4  # Auto-detected if not set
+
+# Logging
+logging:
+  level: info
+  format: json
+
+# Security
+security:
+  max-request-size: 10MB
+  require-auth: false  # Set to true to require Helicone API keys
