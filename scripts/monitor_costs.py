@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
 import json
-import os
 import os
 import sys
 from typing import Dict, Any
