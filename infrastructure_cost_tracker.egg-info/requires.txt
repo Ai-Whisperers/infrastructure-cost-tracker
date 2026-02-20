@@ -1,0 +1,9 @@
+requests
+pydantic>=2.0.0
+
+[dev]
+pytest
+pytest-cov
+ruff
+mypy
+types-requests

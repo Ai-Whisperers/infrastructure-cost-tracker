@@ -1,0 +1,8 @@
+README.md
+pyproject.toml
+infrastructure_cost_tracker.egg-info/PKG-INFO
+infrastructure_cost_tracker.egg-info/SOURCES.txt
+infrastructure_cost_tracker.egg-info/dependency_links.txt
+infrastructure_cost_tracker.egg-info/requires.txt
+infrastructure_cost_tracker.egg-info/top_level.txt
+tests/test_cost_tracker.py

@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: infrastructure-cost-tracker
+Version: 0.1.0
+Summary: Centralized AI cost monitoring and management for OpenClaw.
+Author-email: Ai-Whisperers <ops@openclaw.ai>
+Requires-Dist: requests
+Requires-Dist: pydantic>=2.0.0
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pytest-cov; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: types-requests; extra == "dev"

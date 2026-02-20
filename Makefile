@@ -5,7 +5,7 @@
 # 🏗️ Setup & Environment
 setup:
 	@echo "Installing dependencies..."
-	pip install -e ".[dev]"
+	python3 -m pip install -e ".[dev]" --break-system-packages
 	@echo "Ready."
 
 # 🔍 Quality Assurance (TDD)
@@ -16,7 +16,7 @@ lint:
 
 test:
 	@echo "🧪 Running Unit Tests..."
-	PYTHONPATH=. pytest tests/ -v --cov=cost_tracker
+	PYTHONPATH=. pytest tests/ -v --cov=scripts
 
 # 💰 Operational Commands
 monitor-costs:
