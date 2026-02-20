@@ -1,0 +1,26 @@
+[project]
+name = "infrastructure-cost-tracker"
+version = "0.1.0"
+description = "Centralized AI cost monitoring and management for OpenClaw."
+authors = [{ name = "Ai-Whisperers", email = "ops@openclaw.ai" }]
+dependencies = [
+    "requests",
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "ruff",
+    "mypy",
+    "types-requests",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.mypy]
+strict = true
+ignore_missing_imports = true
